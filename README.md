@@ -7,8 +7,10 @@ Live site: https://smarter-growth-motion.spaceedu-planet-earth.workers.dev/
 ## Files
 
 - `public/index.html` — page markup
-- `public/assets/` — all page assets
+- `public/assets/` — images, fonts, styles, interactions, and the one-time entrance
 - `wrangler.jsonc` — Cloudflare Workers Static Assets configuration
+
+The entrance runs once per page load, ends after about two seconds, and is skipped when reduced motion is preferred. The final frame matches the original static page.
 
 ## Deploy
 

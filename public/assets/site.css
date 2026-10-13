@@ -481,3 +481,23 @@ a:hover .chip svg{transform:translateX(calc(1.5 * var(--px)));transition:transfo
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
+
+/* Initial states exist only while the one-time entrance is prepared.
+   The head script removes this class if the motion script cannot run. */
+@media (prefers-reduced-motion:no-preference){
+  html.entrance-pending .logo,
+  html.entrance-pending .nav,
+  html.entrance-pending .btn-contact,
+  html.entrance-pending .menu-toggle,
+  html.entrance-pending .hero h1,
+  html.entrance-pending .hero p,
+  html.entrance-pending .hero .cta,
+  html.entrance-pending .dots{opacity:0}
+  html.entrance-pending .hero h1{clip-path:inset(0 0 100% 0)}
+}
+@media (prefers-reduced-motion:no-preference) and (min-width:768px) and (min-height:560px){
+  html.entrance-pending .card{opacity:0}
+}
+@media (prefers-reduced-motion:no-preference) and (max-width:767px), (prefers-reduced-motion:no-preference) and (max-height:559px){
+  html.entrance-pending .cards{opacity:0}
+}
