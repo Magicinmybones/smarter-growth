@@ -1,0 +1,483 @@
+/* ---------- Embedded fonts (offline) ---------- */
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:block;src:url(instrument-serif-regular.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:block;src:url(instrument-serif-italic.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:400;font-display:block;src:url(inter-tight-regular.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:500;font-display:block;src:url(inter-tight-medium.woff2) format("woff2")}
+
+/* ---------- Design tokens (sampled from the reference) ---------- */
+:root{
+  --bg:#080a0b;
+  --rule:#151719;
+  --pill:#121416;
+  --pill-edge:#1f2123;
+  --muted:#a0a2a5;
+  --sub:#a5a7aa;
+  --white:#ffffff;
+  --ink:#000000;
+  --btn:#080a0b;
+  --pink:#ff80b6;
+  --sky:#86dffa;
+  --coral:#fe917f;
+
+  --serif:"Instrument Serif","Times New Roman",serif;
+  --sans:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+
+  /* One design pixel of the 1024x768 reference. Every measurement below is
+     expressed as N * --px so the whole layout scales as one unit. */
+  --vh:100vh;
+  --px:1px;
+  --gutter:16px;
+}
+@supports (height:100svh){ :root{ --vh:100svh; } }
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  min-height:var(--vh);
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.card :focus-visible{outline-color:#000}
+
+/* ---------- Page shell: always fills the viewport, no dead bands ---------- */
+.page{
+  min-height:var(--vh);
+  display:flex;
+  flex-direction:column;
+}
+.container{
+  width:calc(767 * var(--px));
+  max-width:calc(100% - 2 * var(--gutter));
+  margin-inline:auto;
+}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:relative;
+  z-index:20;
+  flex:none;
+  height:calc(64 * var(--px));
+  border-bottom:max(1px, calc(1 * var(--px))) solid var(--rule);
+}
+.header-inner{
+  height:100%;
+  display:flex;
+  align-items:center;
+  padding-top:calc(1 * var(--px));
+}
+.logo{
+  flex:none;
+  display:block;
+  width:calc(22 * var(--px));
+  height:calc(24 * var(--px));
+  margin-left:calc(-0.25 * var(--px));
+}
+.logo svg{width:100%;height:100%;display:block}
+
+.nav{
+  display:flex;
+  align-items:center;
+  margin-left:calc(195.5 * var(--px));
+}
+.nav a{
+  position:relative;
+  display:flex;
+  align-items:center;
+  height:calc(33.25 * var(--px));
+  padding:0 calc(10.5 * var(--px)) 0 calc(13 * var(--px));
+  border-radius:999px;
+  font-size:calc(11.25 * var(--px));
+  font-weight:400;
+  letter-spacing:calc(0 * var(--px));
+  color:var(--muted);
+  border:calc(0.5 * var(--px)) solid transparent;
+  transition:color .2s ease, background-color .2s ease, border-color .2s ease;
+  white-space:nowrap;
+}
+.nav a + a{margin-left:calc(-0.9 * var(--px))}
+.nav a:hover{color:#e9eaeb}
+.nav a[aria-current="page"]{
+  color:var(--white);
+  font-weight:500;
+  letter-spacing:calc(0 * var(--px));
+  background:var(--pill);
+  border-color:var(--pill-edge);
+}
+.btn-contact{
+  margin-left:auto;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:calc(34.5 * var(--px));
+  width:calc(73.25 * var(--px));
+  border-radius:999px;
+  background:var(--white);
+  color:var(--ink);
+  font-size:calc(10.75 * var(--px));
+  font-weight:500;
+  letter-spacing:calc(0 * var(--px));
+  padding-top:calc(2 * var(--px));
+  box-shadow:0 0 0 calc(0.5 * var(--px)) #000;
+  white-space:nowrap;
+  transition:transform .2s ease, background-color .2s ease;
+}
+.btn-contact:hover{background:#ececec}
+.menu-toggle{display:none}
+
+/* ---------- Main ---------- */
+.main{
+  flex:1 0 auto;
+  display:flex;
+  flex-direction:column;
+}
+/* Elastic spacers: at the reference aspect ratio they sit at their measured
+   size; on taller screens they share the spare height instead of leaving a gap. */
+.flex-gap{flex:1 0 calc(var(--h) * var(--px))}
+.gap-top{--h:47.37}
+.gap-mid{--h:50.25}
+.gap-bot{--h:56}
+
+.hero{text-align:center;flex:none}
+.hero h1{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:calc(44.5 * var(--px));
+  line-height:calc(51.5 * var(--px));
+  letter-spacing:calc(0 * var(--px));
+  color:var(--white);
+}
+.hero p{
+  margin:calc(9.98 * var(--px)) auto 0;
+  font-size:calc(12.42 * var(--px));
+  line-height:calc(17.5 * var(--px));
+  letter-spacing:calc(0 * var(--px));
+  color:var(--sub);
+}
+.cta{
+  margin:calc(31.4 * var(--px)) auto 0;
+  display:flex;
+  align-items:center;
+  height:calc(36.5 * var(--px));
+  width:calc(160.5 * var(--px));
+  padding:0 0 0 calc(4 * var(--px));
+  border-radius:999px;
+  background:var(--white);
+  color:var(--ink);
+  font-size:calc(12.11 * var(--px));
+  font-weight:500;
+  letter-spacing:calc(0 * var(--px));
+  box-shadow:0 calc(0.5 * var(--px)) calc(1 * var(--px)) #000;
+  white-space:nowrap;
+  transition:background-color .2s ease;
+}
+.cta:hover{background:#f0f0f0}
+.cta .chip{width:calc(36 * var(--px));height:calc(28.5 * var(--px));margin-right:calc(4.5 * var(--px))}
+
+/* Arrow capsule shared by all buttons */
+.chip{
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:var(--btn);
+  color:var(--white);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.chip svg{width:calc(9.25 * var(--px));height:calc(8.2 * var(--px));display:block;overflow:visible}
+a:hover .chip svg{transform:translateX(calc(1.5 * var(--px)));transition:transform .25s ease}
+
+/* ---------- Cards ---------- */
+.cards{
+  flex:1 0 calc(334.5 * var(--px));
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:calc(12.5 * var(--px));
+}
+.card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  border-radius:calc(14.5 * var(--px));
+  color:var(--ink);
+  overflow:hidden;
+  isolation:isolate;
+}
+.card--pink{background:var(--pink)}
+.card--sky{background:var(--sky)}
+.card--coral{background:var(--coral)}
+
+.card__media{
+  position:relative;
+  flex:1 0 calc(160.5 * var(--px));
+}
+.card__art{
+  position:absolute;
+  left:calc(var(--x) * var(--px));
+  top:calc(var(--y) * var(--px));
+  width:calc(var(--w) * var(--px));
+  height:calc(100% - (var(--y) + var(--b)) * var(--px));
+  max-width:calc(100% - 60 * var(--px));
+  object-fit:contain;
+  object-position:left top;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.card__eyes{
+  position:absolute;
+  right:calc(var(--r) * var(--px));
+  top:calc(var(--y) * var(--px));
+  width:calc(var(--w) * var(--px));
+  height:auto;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.card__body{
+  flex:none;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  padding:0 calc(19.5 * var(--px)) calc(19.5 * var(--px)) calc(19.25 * var(--px));
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  height:calc(21 * var(--px));
+  padding:calc(2 * var(--px)) calc(7 * var(--px)) 0;
+  border:calc(0.75 * var(--px)) solid var(--ink);
+  border-radius:999px;
+  font-size:calc(10.37 * var(--px));
+  letter-spacing:calc(0 * var(--px));
+  line-height:1;
+  white-space:nowrap;
+}
+.card h2{
+  margin:calc(12.56 * var(--px)) 0 0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:calc(15.25 * var(--px));
+  line-height:calc(18 * var(--px));
+  letter-spacing:calc(0 * var(--px));
+}
+.card p{
+  margin:calc(11.57 * var(--px)) 0 0;
+  font-size:calc(11.33 * var(--px));
+  line-height:calc(16.5 * var(--px));
+  letter-spacing:calc(0 * var(--px));
+  min-height:calc(33 * var(--px));
+}
+.card__btn{
+  margin-top:calc(25.12 * var(--px));
+  display:inline-flex;
+  align-items:center;
+  height:calc(33.25 * var(--px));
+  min-width:calc(122.5 * var(--px));
+  padding:0 calc(3.5 * var(--px)) 0 calc(2 * var(--px));
+  border-radius:999px;
+  background:var(--btn);
+  color:var(--white);
+  font-size:calc(11.5 * var(--px));
+  font-weight:500;
+  letter-spacing:calc(0.1 * var(--px));
+  white-space:nowrap;
+  transition:background-color .2s ease;
+}
+.card__btn:hover{background:#1b1d1f}
+.card__btn .chip{
+  width:calc(40 * var(--px));
+  height:calc(25.5 * var(--px));
+  margin-right:calc(1 * var(--px));
+  background:var(--white);
+  color:var(--ink);
+}
+.card__btn .chip svg{margin-left:calc(-1 * var(--px))}
+.card__btn span:last-child{padding-right:calc((5 + var(--rp, 0)) * var(--px));margin-left:calc(var(--lx, 0) * var(--px))}
+
+/* =====================================================================
+   RESPONSIVE ARCHITECTURE — every mode fits exactly one screen, no page
+   scrollbar on any device.
+   A) Canvas    - >= 768px wide and >= 560px tall: the reference composition
+                  scaled as one unit. Pixel-identical at 4:3; on other ratios
+                  the spare height is shared out deterministically.
+   B) Phone     - portrait < 768px: hero + a swipeable card rail that takes
+                  all remaining height (scrollbar hidden, dots to navigate).
+   C) Landscape - short screens (< 560px tall): hero left, card rail right.
+   ===================================================================== */
+
+/* Card rail + dots (used by B and C) */
+.dots{display:none}
+
+/* A) Canvas */
+@media (min-width:768px) and (min-height:560px){
+  :root{
+    --px:min(calc(100vw / 1024), calc(var(--vh) / 768));
+    --gutter:0px;
+  }
+  /* Spare height when the viewport is taller than 4:3. Exactly 0 at the
+     reference ratio, so the composition is pixel-identical there. */
+  :root{ --spare:max(0px, calc(var(--vh) - 768 * var(--px))); }
+  /* Side margins track the reference margin (128.5 design px) in the same unit
+     as everything else; the content band widens on wide monitors. */
+  .container{width:min(calc(100vw - 2 * min(calc(100vw * 0.125488), calc(128.5 * var(--px)))), calc(1342 * var(--px)));max-width:none}
+  .header-inner{position:relative}
+  .nav{position:absolute;margin:0;top:calc(15.375 * var(--px));left:calc(50% - 166.25 * var(--px))}
+  .card p{max-width:calc(208.6 * var(--px))}
+  .page{height:var(--vh);min-height:0;overflow:hidden}
+  .main{flex:none}
+  .flex-gap{flex:none;height:calc(var(--h) * var(--px) + var(--spare) * var(--k))}
+  .gap-top{--k:.16}
+  .gap-mid{--k:.14}
+  .gap-bot{--k:.10}
+  .cards{flex:none;height:calc(334.5 * var(--px) + var(--spare) * .6)}
+  .card__art{height:calc(var(--ah) * var(--px) + var(--spare) * .42);width:auto;aspect-ratio:var(--ar)}
+}
+/* A, portrait tablets: let the band use the full width */
+@media (min-width:768px) and (min-height:560px) and (max-aspect-ratio:1/1){
+  :root{ --px:min(calc((100vw - 48px) / 767), calc(var(--vh) / 768)); }
+  .container{width:calc(100vw - 48px)}
+}
+
+/* Shared one-screen rules for B and C */
+@media (max-width:767px), (max-height:559px){
+  html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+  .page{height:var(--vh);min-height:0;overflow:hidden}
+  .main{flex:1 1 auto;min-height:0}
+  .cards{
+    display:flex;
+    grid-template-columns:none;
+    gap:calc(12 * var(--px));
+    width:100%;max-width:none;margin:0;
+    padding:0 var(--gutter);
+    scroll-padding-inline:var(--gutter);
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .cards::-webkit-scrollbar{display:none}
+  .card{flex:0 0 min(86%, calc(300 * var(--px)));scroll-snap-align:start;min-height:0}
+  .main .cards.container{width:100%;max-width:none;margin:0}
+  .card__art{width:auto;aspect-ratio:var(--ar);height:calc(100% - (var(--y) + var(--b)) * var(--px));max-height:calc(var(--ah) * var(--px) * 1.9)}
+  .card__media{flex:1 1 auto;min-height:calc(64 * var(--px))}
+  .card p{min-height:0}
+  .dots{
+    display:flex;justify-content:center;align-items:center;gap:calc(7 * var(--px));
+    flex:none;height:calc(30 * var(--px));
+  }
+  .dots[hidden]{display:none}
+  .dots button{
+    width:calc(7 * var(--px));height:calc(7 * var(--px));padding:0;border:0;border-radius:999px;
+    background:rgba(255,255,255,.22);cursor:pointer;transition:width .25s ease, background-color .25s ease;
+  }
+  .dots button[aria-current="true"]{width:calc(20 * var(--px));background:#fff}
+}
+
+/* Hamburger navigation for narrow screens */
+@media (max-width:767px){
+  .nav{display:none}
+  .btn-contact{margin-left:auto}
+  .menu-toggle{
+    display:grid;place-items:center;
+    margin-left:calc(8 * var(--px));
+    width:calc(34.5 * var(--px));height:calc(34.5 * var(--px));
+    border-radius:999px;border:calc(0.5 * var(--px)) solid var(--pill-edge);
+    background:var(--pill);cursor:pointer;padding:0;
+  }
+  .menu-toggle span{position:relative;display:block;width:calc(13 * var(--px));height:1.5px;background:#fff;border-radius:2px;transition:background .2s}
+  .menu-toggle span::before,.menu-toggle span::after{content:"";position:absolute;left:0;width:100%;height:100%;background:#fff;border-radius:2px;transition:transform .25s ease}
+  .menu-toggle span::before{transform:translateY(calc(-4 * var(--px)))}
+  .menu-toggle span::after{transform:translateY(calc(4 * var(--px)))}
+  .site-header.is-open .menu-toggle span{background:transparent}
+  .site-header.is-open .menu-toggle span::before{transform:rotate(45deg)}
+  .site-header.is-open .menu-toggle span::after{transform:rotate(-45deg)}
+  .site-header.is-open .nav{
+    display:flex;flex-direction:column;align-items:stretch;gap:4px;
+    position:absolute;left:var(--gutter);right:var(--gutter);top:calc(100% + 8px);
+    margin:0;padding:8px;border-radius:20px;
+    background:rgba(18,20,22,.72);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 20px 40px rgba(0,0,0,.45);
+    animation:menu-in .22s ease both;
+    max-height:calc(var(--vh) - 100% - 16px);overflow:auto;
+  }
+  .site-header.is-open .nav a{height:44px;font-size:15px;padding:0 16px;margin:0}
+  @keyframes menu-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+}
+
+/* B) Phone portrait */
+@media (max-width:767px) and (min-height:560px), (max-width:767px) and (max-aspect-ratio:1/1){
+  :root{
+    --px:clamp(0.8px, min(calc(100vw / 340), calc(var(--vh) / 700)), 1.3px);
+    --gutter:16px;
+  }
+  .container{width:calc(100% - 2 * var(--gutter));max-width:none}
+  .site-header{height:calc(58 * var(--px))}
+  .gap-top{flex:0 1 calc(26 * var(--px));min-height:calc(12 * var(--px))}
+  .hero h1{font-size:min(calc(40 * var(--px)), 10.8vw);line-height:1.12}
+  .hero br.wrap-d{display:none}
+  .hero p{max-width:calc(300 * var(--px));margin-top:calc(10 * var(--px))}
+  .cta{margin-top:calc(20 * var(--px))}
+  .gap-mid{flex:0 1 calc(26 * var(--px));min-height:calc(12 * var(--px))}
+  .cards{flex:1 1 auto;min-height:0}
+  .gap-bot{display:none}
+  .dots{height:calc(34 * var(--px))}
+}
+
+/* C) Landscape / short screens */
+@media (max-height:559px) and (min-aspect-ratio:1/1){
+  :root{
+    --px:clamp(0.72px, min(calc(var(--vh) / 430), calc(100vw / 900)), 1.15px);
+    --gutter:max(16px, env(safe-area-inset-left), env(safe-area-inset-right));
+  }
+  .container{width:calc(100% - 2 * var(--gutter));max-width:none}
+  .site-header{height:calc(56 * var(--px))}
+  .header-inner{position:relative}
+  .btn-contact{margin-left:auto}
+  .main{
+    display:grid;
+    grid-template-columns:minmax(0, .92fr) minmax(0, 1.08fr);
+    grid-template-rows:minmax(0,1fr) auto;
+    column-gap:calc(24 * var(--px));
+    padding:calc(14 * var(--px)) var(--gutter) 0;
+  }
+  .flex-gap{display:none}
+  .hero{grid-column:1;grid-row:1 / span 2;align-self:center;text-align:left;width:auto;max-width:none;margin:0}
+  .hero h1{font-size:calc(36 * var(--px));line-height:1.1}
+  .hero p{margin:calc(10 * var(--px)) 0 0;max-width:calc(330 * var(--px))}
+  .hero br.wrap-d{display:none}
+  .cta{margin:calc(18 * var(--px)) 0 0}
+  .cards{grid-column:2;grid-row:1;height:100%;padding:0;scroll-padding-inline:0}
+  .card{flex-basis:min(78%, calc(250 * var(--px)))}
+  .dots{grid-column:2;grid-row:2;height:calc(30 * var(--px))}
+}
+@media (max-height:559px) and (min-width:768px){
+  .nav{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}
+}
+/* Portrait tablets: give spare height mostly to the cards, keep hero tight */
+@media (min-width:768px) and (min-height:560px) and (max-aspect-ratio:1/1){
+  .gap-top{--k:.10}
+  .gap-mid{--k:.06}
+  .gap-bot{--k:.08}
+  .cards{height:calc(334.5 * var(--px) + var(--spare) * .76)}
+  .card__art{height:calc(var(--ah) * var(--px) + var(--spare) * .5)}
+}
+@media (max-width:359px){
+  .btn-contact{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}

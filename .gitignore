@@ -1,0 +1,25 @@
+# Local tooling and generated files
+node_modules/
+.wrangler/
+dist/
+.cache/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+.dev.vars*
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Unneeded exports and archives
+*.zip
+*.bak
